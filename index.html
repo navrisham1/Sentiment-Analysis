@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <script>
+            function checkExit()
+            {
+                window.alert("in CheckExit");
+                var xmlhttp = new XMLHttpRequest();
+                var username = document.forms["adduser"]["txtusername"].value;
+                var url = "CheckUserName.jsp?username=" + username;
+                xmlhttp.onreadystatechange = function() {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+                    {
+                        if (xmlhttp.responseText == "Username Already exist")
+                        {
+                            document.getElementById("isE").style.color = red;
+                        } else
+                            document.getElementById("isE").style.color = green;
+                        document.getElementById("isE").value = xmlhttp.responseText;
+                    }
+                }
+                try
+                {
+                    xmlhttp.open("GET",url,true);
+                    xmlhttp.send();
+                }
+                catch(e)
+                {
+                    alert("Unable to connect Server "+e);
+                }
+            }
+            function abc()
+            {
+                window.alert("Hello");
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        <form>
+            <input type="text" id="txtusername" name="txtusername" onblur="checkExit()" /><span id="isE"></span>
+            <input type="button" value="click me" onclick="abc()" /> 
+        </form>
+    </body>
+</html>
